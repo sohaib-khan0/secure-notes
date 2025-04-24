@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Search Results</h2>
+
+            {% if notes %}
+                <div class="row">
+                    {% for note in notes %}
+                        <div class="col-12 col-md-4 mb-4">
+                            <!-- Note Card -->
+                            <div class="card shadow-sm">
+                                <div class="card-body">
+                                    <p class="card-text" style="white-space: pre-wrap;">{{ note.content | safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    <p>No notes found matching your query.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

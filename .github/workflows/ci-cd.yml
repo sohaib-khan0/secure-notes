@@ -1,0 +1,46 @@
+name: Flask App CI/CD
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on push to main branch
+  pull_request:
+    branches:
+      - main  # Trigger workflow for PR to main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'  # Define the Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt  # Install the required Python packages
+
+    - name: Run tests
+      run: |
+        pytest  # Run unit tests (if using pytest)
+
+    - name: Build Docker image
+      run: |
+        docker build -t myssdprojectupdatedone .
+
+    - name: Push Docker image (if using Docker Hub or any registry)
+      run: |
+        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD  # GitHub secrets for Docker Hub login
+        docker push myssdprojectupdatedone:latest
+
+    - name: Deploy to production (optional)
+      run: |
+        # Add deployment script here (e.g., SSH commands to deploy to server, Heroku, etc.)
+        echo "Deploying to production..."
+

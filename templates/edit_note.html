@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Edit Note</h2>
+
+            <!-- Edit Note Form in a Bootstrap Card -->
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Update Your Note</h5>
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="form-group">
+                            {{ form.content.label(class="form-label") }}
+                            {{ form.content(class="form-control", rows="5", placeholder="Edit your note here...") }}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary mt-3">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
